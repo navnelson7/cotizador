@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
+import {obtenerDiferenciaYear, calcularMarca, obtenerPlan} from '../helper';
 //creando styled components
 const Campo = styled.div`
     display: flex;
@@ -41,12 +42,26 @@ const Button = styled.button`
     }
 `;
 
+const Error = styled.div`
+   background-color: red;
+   color: white;
+   padding: 1rem;
+   width: 100%;
+   text-align:center;
+   margin-bottom: 2rem;
+`;
+
+// fin de styledcomponents
+//funciones
 const Formulario = () => {
     const [datos, guardarDatos] = useState({
         marca : '',
         year : '',
         plan : ''
     });
+
+    const [error, guardarError] = useState(false);
+
     const {marca, year, plan} = datos;
     //obtener informacion del fomrulario
     const obtenerInfomacion = e => {
@@ -55,8 +70,48 @@ const Formulario = () => {
             [e.target.name] : e.target.value
         })
     }
+
+    
+
+    //al presionar submit
+    const cotizarSeguro = e => {
+        e.preventDefault();
+        if(marca.trim() === '' || year.trim === plan.trim === ''){
+            guardarError(true);
+            return
+        }
+        guardarError(false);
+        //una base de 2000
+        let resultado = 2000;
+
+
+        //obtener la diferencia en anios
+        const diferencia = obtenerDiferenciaYear(year);
+
+        //por cada anio hay que restar 3%
+        resultado -=  ((diferencia * 3)*resultado) / 100;
+
+        //americano 15%
+        //asiatico 5%
+        //europeo 30%
+        resultado = calcularMarca(marca)* resultado;
+        console.log(resultado);
+
+        //basico aumenta 20%
+        //completo aumenta 50%
+        const incrementoPlan =  obtenerPlan(plan);
+        resultado = parseFloat(incrementoPlan*resultado).toFixed(2);
+        console.log(resultado);
+        //total
+
+
+    }
+
     return ( 
-        <form>
+        <form
+            onSubmit={cotizarSeguro}
+        >
+            { error ? <Error>Todos los campos son obligatorios</Error>: null}
             <Campo>
                 <Label>Marca: </Label>
                 <Select
@@ -109,7 +164,7 @@ const Formulario = () => {
                 /> Completo
             </Campo>
             <Button
-                type="button"
+                type="submit"
             >Cotizar</Button>
         </form>
      );
