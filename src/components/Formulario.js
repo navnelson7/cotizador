@@ -53,7 +53,7 @@ const Error = styled.div`
 
 // fin de styledcomponents
 //funciones
-const Formulario = () => {
+const Formulario = ({guardarResumen}) => {
     const [datos, guardarDatos] = useState({
         marca : '',
         year : '',
@@ -103,7 +103,11 @@ const Formulario = () => {
         resultado = parseFloat(incrementoPlan*resultado).toFixed(2);
         console.log(resultado);
         //total
-
+        
+        guardarResumen({
+            cotizacion: resultado,
+            datos
+        })
 
     }
 
