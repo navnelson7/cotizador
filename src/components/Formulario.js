@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from '@emotion/styled';
 //creando styled components
 const Campo = styled.div`
@@ -42,11 +42,28 @@ const Button = styled.button`
 `;
 
 const Formulario = () => {
+    const [datos, guardarDatos] = useState({
+        marca : '',
+        year : '',
+        plan : ''
+    });
+    const {marca, year, plan} = datos;
+    //obtener informacion del fomrulario
+    const obtenerInfomacion = e => {
+        guardarDatos({
+            ...datos,
+            [e.target.name] : e.target.value
+        })
+    }
     return ( 
         <form>
             <Campo>
                 <Label>Marca: </Label>
-                <Select>
+                <Select
+                    name="marca"
+                    value={marca}
+                    onChange={obtenerInfomacion}
+                >
                     <option value=''>----- Selecciones -----</option>
                     <option value='americano'>Americano-</option>
                     <option value='europeo'>Europeo</option>
@@ -55,7 +72,11 @@ const Formulario = () => {
             </Campo>
             <Campo>
                 <Label>Año: </Label>
-                    <Select>
+                    <Select
+                        name="year"
+                        value={year}
+                        onChange={obtenerInfomacion}
+                    >
                         <option value="">-- Seleccione --</option>
                         <option value="2021">2021</option>
                         <option value="2020">2020</option>
@@ -75,12 +96,16 @@ const Formulario = () => {
                     type='radio'
                     name='plan'
                     value='basico'
+                    checked={plan === "basico"}
+                    onChange={obtenerInfomacion}
                 /> Básico
 
                 <InputRadio 
                     type='radio'
                     name='plan'
                     value='completo'
+                    checked={plan === "completo"}
+                    onChange={obtenerInfomacion}
                 /> Completo
             </Campo>
             <Button
