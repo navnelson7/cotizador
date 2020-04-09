@@ -1,6 +1,8 @@
-import React,{Fragment} from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { primeraMayuscula} from '../helper';
+import PropTypes from 'prop-types';
+
 //creando syledcomponent
 const ContenedorResumen = styled.div`
     padding: 1rem;
@@ -26,5 +28,7 @@ const Resumen = ({datos}) => {
         </ContenedorResumen>
      );
 }
- 
+ Resumen.propTypes = {
+     datos: PropTypes.object.isRequired
+ }
 export default Resumen;
