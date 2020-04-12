@@ -18,7 +18,7 @@ npm install
 ```
 npm start
 ```
-## Para ver una demo vista el siguiente enlace.
+## Para ver una demo visita el siguiente enlace.
 * [Control Presupuesto](https://thirsty-shirley-2ddcc3.netlify.com)
 
 
