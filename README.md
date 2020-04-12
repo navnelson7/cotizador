@@ -8,7 +8,7 @@ Este proyecto es una simulación básica de cotización de seguros los valores n
 ## Comenzando 🚀
 * Debes clonar este proyecto
 ```
-git clone https://github.com/navnelson7/zotizador.git
+git clone https://github.com/navnelson7/cotizador.git
 ```
 * Debes instalar las dependencias
 ```
